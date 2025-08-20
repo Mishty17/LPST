@@ -102,115 +102,141 @@ h4 { font-size: 1.5rem; }
 /* Resource Grid */
 .resources-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   margin-bottom: 3rem;
+  padding: 1rem;
 }
 
 /* Resource Box */
 .resource-box {
   position: relative;
-  background: white;
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2rem;
+  background: #2e7d32;
+  border: none;
+  border-radius: 8px;
+  padding: 1.5rem;
   text-align: center;
-  transition: var(--transition);
-  min-height: 200px;
+  transition: all 0.3s ease;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .resource-box.vacant {
-  border-color: var(--success-color);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2));
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-  animation: pulse-green 3s infinite;
-  color: var(--dark-color);
+  background: #2e7d32;
+  color: white;
 }
 
 .resource-box.occupied {
-  border-color: var(--danger-color);
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.2));
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-  animation: pulse-red 3s infinite;
-  color: var(--dark-color);
+  background: #d32f2f;
+  color: white;
 }
 
 .resource-box.paid {
-  border-color: var(--primary-color);
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.2));
-  box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
-  animation: pulse-blue 3s infinite;
-  color: var(--dark-color);
+  background: #1976d2;
+  color: white;
 }
 
 .resource-box.today-advance {
-  border-color: var(--success-color);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.1));
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  background: #388e3c;
+  color: white;
 }
 
-@keyframes pulse-green {
-  0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
-}
-
-@keyframes pulse-red {
-  0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
-}
-
-@keyframes pulse-blue {
-  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(37, 99, 235, 0.5); }
+.resource-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .resource-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.resource-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.resource-info {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: white;
+}
+
+.resource-details {
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin: 0.25rem 0;
 }
 
 .status-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
+  position: static;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  margin-top: 0.5rem;
 }
 
 .status-vacant {
-  background: var(--success-color);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
 }
 
 .status-booked, .status-pending, .status-advanced {
-  background: var(--danger-color);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
 }
 
 .status-paid {
-  background: var(--primary-color);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
 }
 
 .today-badge {
-  background: var(--warning-color);
+  background: rgba(255, 255, 255, 0.3);
   color: white;
   margin-top: 0.5rem;
-  font-size: 0.7rem;
+  font-size: 12px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
 }
 
 .resource-actions {
+  display: none;
+  margin-top: 1rem;
+}
+
+.resource-box:hover .resource-actions {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.action-buttons {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-top: 1rem;
+}
+
+.resource-box:hover .action-buttons {
+  display: flex;
 }
 
 /* Buttons */
@@ -225,6 +251,11 @@ h4 { font-size: 1.5rem; }
   display: inline-block;
   text-align: center;
   transition: var(--transition);
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
 }
 
 .btn-primary {
@@ -533,6 +564,29 @@ h4 { font-size: 1.5rem; }
 @media (max-width: 768px) {
   body { font-size: 20px; }
   
+  .resources-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+  
+  .resource-box {
+    min-height: 140px;
+    padding: 1rem;
+  }
+  
+  .resource-title {
+    font-size: 20px;
+  }
+  
+  .resource-info {
+    font-size: 20px;
+  }
+  
+  .resource-details {
+    font-size: 16px;
+  }
+  
   .top-nav {
     flex-direction: column;
     gap: 1rem;
@@ -546,11 +600,6 @@ h4 { font-size: 1.5rem; }
   .nav-links {
     width: 100%;
     justify-content: space-between;
-  }
-  
-  .resources-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
   }
   
   .container {
@@ -572,13 +621,27 @@ h4 { font-size: 1.5rem; }
 @media (max-width: 480px) {
   body { font-size: 18px; }
   
+  .resources-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
   .resource-box {
-    padding: 1.5rem;
-    min-height: 160px;
+    padding: 1rem;
+    min-height: 120px;
   }
   
   .resource-title {
     font-size: 18px;
+  }
+  
+  .resource-info {
+    font-size: 18px;
+  }
+  
+  .resource-details {
+    font-size: 14px;
   }
   
   .btn {
@@ -587,14 +650,26 @@ h4 { font-size: 1.5rem; }
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1200px) {
   .resources-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .resource-box {
+    min-height: 180px;
+    padding: 1.5rem;
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1201px) {
   .resources-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .resource-box {
+    min-height: 200px;
+    padding: 2rem;
   }
 }

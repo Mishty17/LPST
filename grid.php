@@ -68,44 +68,53 @@ $flash = get_flash_message();
                 ?>
                 
                 <div class="resource-box <?= $boxClass ?>" data-resource-id="<?= $resource['id'] ?>">
-                    <?php if (!$booking['is_paid'] && $isOccupied): ?>
-                        <div class="unpaid-ribbon">UNPAID</div>
-                    <?php endif; ?>
-                    
-                    <div class="status-badge status-<?= $isOccupied ? strtolower($booking['status']) : 'vacant' ?>">
-                        <?= $isOccupied ? $booking['status'] : 'VACANT' ?>
-                    </div>
-                    
-                    <?php if ($isTodayAdvance): ?>
-                        <div class="status-badge today-badge">TODAY: ADVANCED BOOKING</div>
-                    <?php endif; ?>
-                    
                     <div class="resource-title">
                         <?= htmlspecialchars($displayName) ?>
                     </div>
                     
+                    <div class="resource-subtitle">
+                        <?= strtoupper($resource['type']) ?>
+                    </div>
+                    
                     <?php if ($isOccupied): ?>
-                        <div style="font-size: 0.8rem; margin: 0.5rem 0;">
-                            <strong>Client:</strong> <?= htmlspecialchars($booking['client_name']) ?><br>
-                            <strong>Check-in:</strong> <?= date('M j, g:i A', strtotime($booking['check_in'])) ?><br>
-                            <?php if ($booking['status'] === 'PAID'): ?>
-                                <?php 
-                                $duration = calculate_duration($booking['actual_check_in'] ?: $booking['check_in'], $booking['actual_check_out']);
-                                ?>
-                                <div class="duration-display">
-                                    Duration: <?= $duration['formatted'] ?>
-                                </div>
-                            <?php elseif ($booking['status'] !== 'PENDING'): ?>
-                                <div class="live-counter" data-checkin="<?= $booking['check_in'] ?>">
-                                    Calculating...
-                                </div>
-                            <?php else: ?>
-                                <div style="color: var(--danger-color); font-weight: 600;">
-                                    ⚠️ REQUIRES ACTION
-                                </div>
-                            <?php endif; ?>
+                        <div class="resource-info">
+                            <?= htmlspecialchars($booking['client_name']) ?>
                         </div>
+                        <div class="resource-details">
+                            <?= date('M j, g:i A', strtotime($booking['check_in'])) ?>
+                        </div>
+                        <?php if ($booking['status'] === 'PAID'): ?>
+                            <?php 
+                            $duration = calculate_duration($booking['actual_check_in'] ?: $booking['check_in'], $booking['actual_check_out']);
+                            ?>
+                            <div class="resource-details">
+                                Duration: <?= $duration['formatted'] ?>
+                            </div>
+                        <?php elseif ($booking['status'] !== 'PENDING'): ?>
+                            <div class="live-counter" data-checkin="<?= $booking['check_in'] ?>" style="font-size: 16px; margin: 0.5rem 0;">
+                                Calculating...
+                            </div>
+                        <?php else: ?>
+                            <div class="resource-details" style="color: #ffeb3b;">
+                                ⚠️ REQUIRES ACTION
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if (!$booking['is_paid']): ?>
+                            <div class="status-badge">UNPAID</div>
+                        <?php endif; ?>
+                    <?php elseif ($isTodayAdvance): ?>
+                        <div class="resource-info">ADVANCE BOOKING</div>
+                        <div class="resource-details">Ready for Check-in</div>
+                        <div class="today-badge">DUE TODAY</div>
+                    <?php else: ?>
+                        <div class="resource-info">AVAILABLE</div>
+                        <div class="status-badge status-vacant">VACANT</div>
                     <?php endif; ?>
+                    
+                    <div class="status-badge status-<?= $isOccupied ? strtolower($booking['status']) : 'vacant' ?>">
+                        <?= $isOccupied ? $booking['status'] : 'VACANT' ?>
+                        </div>
                     
                     <div class="action-buttons">
                         <?php if (!$isOccupied && !$isTodayAdvance): ?>
