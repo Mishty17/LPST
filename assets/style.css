@@ -102,7 +102,7 @@ h4 { font-size: 1.5rem; }
 /* Resource Grid */
 .resources-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin-bottom: 3rem;
   padding: 1rem;
@@ -117,13 +117,15 @@ h4 { font-size: 1.5rem; }
   padding: 1.5rem;
   text-align: center;
   transition: all 0.3s ease;
-  min-height: 160px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: white;
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .resource-box.vacant {
@@ -151,33 +153,41 @@ h4 { font-size: 1.5rem; }
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
+.resource-box.expanded {
+  min-height: 200px;
+}
+
 .resource-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .resource-subtitle {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   opacity: 0.9;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .resource-info {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   margin: 0.5rem 0;
   color: white;
+  text-align: center;
 }
 
 .resource-details {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
   opacity: 0.9;
   margin: 0.25rem 0;
+  text-align: center;
 }
 
 .status-badge {
@@ -218,25 +228,39 @@ h4 { font-size: 1.5rem; }
 }
 
 .resource-actions {
-  display: none;
-  margin-top: 1rem;
-}
-
-.resource-box:hover .resource-actions {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.resource-box.expanded .resource-actions {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 200px;
 }
 
 .action-buttons {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
 }
 
-.resource-box:hover .action-buttons {
-  display: flex;
+.resource-box.expanded .action-buttons {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 200px;
 }
 
 /* Buttons */
@@ -565,26 +589,26 @@ h4 { font-size: 1.5rem; }
   body { font-size: 20px; }
   
   .resources-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
     padding: 0.5rem;
   }
   
   .resource-box {
-    min-height: 140px;
+    min-height: 120px;
     padding: 1rem;
   }
   
   .resource-title {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   .resource-info {
-    font-size: 20px;
+    font-size: 16px;
   }
   
   .resource-details {
-    font-size: 16px;
+    font-size: 12px;
   }
   
   .top-nav {
@@ -622,54 +646,54 @@ h4 { font-size: 1.5rem; }
   body { font-size: 18px; }
   
   .resources-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
     padding: 0.5rem;
   }
   
   .resource-box {
     padding: 1rem;
-    min-height: 120px;
+    min-height: 100px;
   }
   
   .resource-title {
-    font-size: 18px;
+    font-size: 16px;
   }
   
   .resource-info {
-    font-size: 18px;
+    font-size: 14px;
   }
   
   .resource-details {
-    font-size: 14px;
+    font-size: 12px;
   }
   
   .btn {
     padding: 0.6rem 1.2rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
   .resources-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
   }
   
   .resource-box {
-    min-height: 180px;
+    min-height: 160px;
     padding: 1.5rem;
   }
 }
 
 @media (min-width: 1201px) {
   .resources-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
   
   .resource-box {
-    min-height: 200px;
+    min-height: 180px;
     padding: 2rem;
   }
 }

@@ -67,7 +67,7 @@ $flash = get_flash_message();
                 }
                 ?>
                 
-                <div class="resource-box <?= $boxClass ?>" data-resource-id="<?= $resource['id'] ?>">
+                <div class="resource-box <?= $boxClass ?>" data-resource-id="<?= $resource['id'] ?>" onclick="toggleResourceBox(this)">
                     <div class="resource-title">
                         <?= htmlspecialchars($displayName) ?>
                     </div>
@@ -118,20 +118,20 @@ $flash = get_flash_message();
                     
                     <div class="action-buttons">
                         <?php if (!$isOccupied && !$isTodayAdvance): ?>
-                            <a href="booking_new.php?type=<?= $resource['type'] ?>&id=<?= $resource['id'] ?>" class="btn btn-primary">Book Now</a>
+                            <a href="booking_new.php?type=<?= $resource['type'] ?>&id=<?= $resource['id'] ?>" class="btn btn-primary" onclick="event.stopPropagation()">Book Now</a>
                         <?php elseif ($isTodayAdvance): ?>
-                            <a href="booking_advance_convert.php?resource_id=<?= $resource['id'] ?>" class="btn btn-success">Convert to Active</a>
+                            <a href="booking_advance_convert.php?resource_id=<?= $resource['id'] ?>" class="btn btn-success" onclick="event.stopPropagation()">Convert to Active</a>
                         <?php elseif ($isOccupied && $booking['status'] !== 'PAID'): ?>
-                            <a href="booking_manage.php?id=<?= $booking['id'] ?>" class="btn btn-warning">Details</a>
+                            <a href="booking_manage.php?id=<?= $booking['id'] ?>" class="btn btn-warning" onclick="event.stopPropagation()">Details</a>
                             <?php if (!$booking['is_paid']): ?>
-                                <form method="POST" action="booking_actions.php" style="display: inline;">
+                                <form method="POST" action="booking_actions.php" style="display: inline;" onclick="event.stopPropagation()">
                                     <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                                     <input type="hidden" name="action" value="mark_paid">
                                     <input type="hidden" name="booking_id" value="<?= $booking['id'] ?>">
                                     <button type="submit" class="btn btn-success">Mark Paid</button>
                                 </form>
                             <?php endif; ?>
-                            <form method="POST" action="booking_actions.php" style="display: inline;">
+                            <form method="POST" action="booking_actions.php" style="display: inline;" onclick="event.stopPropagation()">
                                 <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                                 <input type="hidden" name="action" value="checkout">
                                 <input type="hidden" name="booking_id" value="<?= $booking['id'] ?>">
@@ -139,7 +139,7 @@ $flash = get_flash_message();
                             </form>
                         <?php endif; ?>
                         
-                        <button onclick="openPaymentModal(<?= $resource['id'] ?>, '<?= htmlspecialchars($displayName) ?>')" 
+                        <button onclick="event.stopPropagation(); openPaymentModal(<?= $resource['id'] ?>, '<?= htmlspecialchars($displayName) ?>')" 
                                 class="btn btn-outline">Payment</button>
                     </div>
                 </div>

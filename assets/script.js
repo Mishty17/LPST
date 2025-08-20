@@ -70,6 +70,19 @@ function updateLiveCounters() {
     });
 }
 
+// Toggle resource box expansion
+function toggleResourceBox(element) {
+    // Close all other expanded boxes
+    document.querySelectorAll('.resource-box.expanded').forEach(box => {
+        if (box !== element) {
+            box.classList.remove('expanded');
+        }
+    });
+    
+    // Toggle current box
+    element.classList.toggle('expanded');
+}
+
 // Payment modal functions
 function openPaymentModal(resourceId, resourceName) {
     document.getElementById('paymentResourceId').value = resourceId;
